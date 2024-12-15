@@ -11,8 +11,9 @@
 匹配不上，返回1
 ##############################################
 */
-int userlogin(char input_username[], char input_password[])
+int userlogin()
 {
+
     char* arr[10];
     int i = 0;
     char* line = NULL;
@@ -59,6 +60,13 @@ int userlogin(char input_username[], char input_password[])
         
     }
     
+    char input_username[20] = {0};
+    char input_password[20] = {0};
+    printf("please input your username\n");
+    scanf("%s", input_username);
+    printf("please input your password\n");
+    scanf("%s", input_password);
+
     for (int n = 0; n < i; n++)
     {
         if (strcmp(input_username, username[n]) == 0)
