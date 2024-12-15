@@ -6,6 +6,7 @@
             "command": "D:\\environment\\mingw64\\bin\\gcc.exe",
             "args": [
                 "-fdiagnostics-color=always",
+                "-g",
                 "${workspaceFolder}/src/main.c",
                 "${workspaceFolder}/src/userlogin.c",
                 "${workspaceFolder}/src/userdestine.c",

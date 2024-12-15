@@ -13,15 +13,21 @@ int main(int argc, char const *argv[])
         printf("login fail!");
         return 0;
     }
-    printf("success!");
+    printf("success!\n");
     struct destine_time userorder;
-    // userorder.date = "1";
-    // userorder.time = 1;
-    if (userdestine(&userorder) != 0)
+    int state = userdestine(&userorder);
+    if (state == 2)
+    {
+        printf("user exit...\n");
+        return 0;
+    }
+    if (state != 0)
     {
         printf("Something Error...\n");
         return 0;
     }
+
+    
     printf("you order date is %s\n", userorder.date);
     printf("you order time is %d\n", userorder.time);
 

@@ -62,7 +62,7 @@ int userdestine(struct destine_time *ordertime)
     scanf("%d", &date_select);
     if (date_select == 4)
     {
-        return 1;
+        return 2;
     }
 
     switch (date_select)
@@ -70,11 +70,15 @@ int userdestine(struct destine_time *ordertime)
     case 1:
         printf("you choose today!\n");
 
-        // 调试点
+        /*
+
+        调试点
         printf("input test minute\n");
         scanf("%d", &(timeinfo->tm_min));
         printf("input test hour\n");
-        scanf("%d", &(timeinfo->tm_hour));    
+        scanf("%d", &(timeinfo->tm_hour)); 
+
+        */ 
 
         // 以下为时间处理逻辑，返回的东西是24小时制的*用户所预定的时段*
 
@@ -115,7 +119,7 @@ int userdestine(struct destine_time *ordertime)
         if (select_time == 9)
         {
             printf("user exit.\n");
-            return 1;
+            return 2;
         }
         else if (select_time > number)
         {
@@ -168,7 +172,7 @@ int userdestine(struct destine_time *ordertime)
         if (select_time == 9)
         {
             printf("user exit.\n");
-            return 1;
+            return 2;
         }
         else if (select_time<9)
         {
@@ -217,7 +221,7 @@ int userdestine(struct destine_time *ordertime)
         if (select_time == 9)
         {
             printf("user exit.\n");
-            return 1;
+            return 2;
         }
         else if (select_time<9)
         {
@@ -228,7 +232,7 @@ int userdestine(struct destine_time *ordertime)
             printf("No such option!\n");
             return 1;
         }
-        printf("your select time is %d", select_time);
+        // printf("your select time is %d\n", select_time);
         strcpy(ordertime->date, acquired_date);
         ordertime->time = select_time;
         break;
