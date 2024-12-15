@@ -6,13 +6,15 @@
             "command": "D:\\environment\\mingw64\\bin\\gcc.exe",
             "args": [
                 "-fdiagnostics-color=always",
-                "-g",
-                "${file}",
+                "${workspaceFolder}/src/main.c",
+                "${workspaceFolder}/src/userlogin.c",
+                "${workspaceFolder}/src/userdestine.c",
+                "-I", "${workspaceFolder}/inc",
                 "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+                "${workspaceFolder}/src/main.exe"
             ],
             "options": {
-                "cwd": "${fileDirname}"
+                "cwd": "${workspaceFolder}"
             },
             "problemMatcher": [
                 "$gcc"

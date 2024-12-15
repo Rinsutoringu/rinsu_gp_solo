@@ -1,6 +1,9 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+#include<time.h>
+
+
 
 /*
 ##############################################
@@ -11,6 +14,7 @@
 匹配不上，返回1
 ##############################################
 */
+
 int userlogin()
 {
 
@@ -20,7 +24,7 @@ int userlogin()
     char buffer[100] = {0};
     // 先从文件中读取全部用户名和密码
     FILE *file;
-    file = fopen("name_and_password.txt", "r");
+    file = fopen("../name_and_password.txt", "r");
     if (file == NULL)
     {
         printf("file open error\n");

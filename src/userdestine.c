@@ -2,7 +2,9 @@
 #include<stdlib.h>
 #include<string.h>
 #include<time.h>
-// #include"../function/userlogin/userlogin.h"
+#include"user_choose.h"
+
+
 /*
 ##############################################
 
@@ -14,40 +16,18 @@
 ##############################################
 */
 
-struct destine_time
-{
-    int date;
-    int time;
-};
 
-int userdestine(struct destine_time time);
-
-
-int main(int argc, char const *argv[])
-{
-
-    // if (userlogin() == 1)
-    // {
-    //     printf("login fail!");
-    //     return 0;
-    // }
-    // printf("success!");
-    struct destine_time userorder;
-    userdestine(userorder);
-    return 0;
-}
-
-int userdestine(struct destine_time ordertime)
+int userdestine(struct destine_time *ordertime)
 {
     time_t rawtime;  
     struct tm * timeinfo;  
   
     time(&rawtime);  
     timeinfo = localtime(&rawtime);  
-    char today_time[80];
-    char tomorrow_time[80];
-    char acquired_time[80];
-    snprintf(today_time, sizeof(today_time),
+    char today_date[80];
+    char tomorrow_date[80];
+    char acquired_date[80];
+    snprintf(today_date, sizeof(today_date),
         "%04d.%02d.%02d",
         timeinfo->tm_year + 1900,  // 年份是从1900年开始的，所以要+1900  
         timeinfo->tm_mon + 1,  // 月份是从0开始的，所以要+1  
@@ -55,7 +35,7 @@ int userdestine(struct destine_time ordertime)
 
     timeinfo->tm_mday++;
     mktime(timeinfo);
-    snprintf(tomorrow_time, sizeof(today_time),
+    snprintf(tomorrow_date, sizeof(today_date),
         "%04d.%02d.%02d",
         timeinfo->tm_year + 1900,  // 年份是从1900年开始的，所以要+1900  
         timeinfo->tm_mon + 1,  // 月份是从0开始的，所以要+1  
@@ -63,14 +43,14 @@ int userdestine(struct destine_time ordertime)
 
     timeinfo->tm_mday++;
     mktime(timeinfo);
-    snprintf(acquired_time, sizeof(today_time),
+    snprintf(acquired_date, sizeof(today_date),
         "%04d.%02d.%02d",
         timeinfo->tm_year + 1900,  // 年份是从1900年开始的，所以要+1900  
         timeinfo->tm_mon + 1,  // 月份是从0开始的，所以要+1  
         timeinfo->tm_mday);  
 
     printf("Which day you want order?\n");
-    printf("1. %s\n2. %s\n3. %s\n4. exit\n", today_time, tomorrow_time, acquired_time);
+    printf("1. %s\n2. %s\n3. %s\n4. exit\n", today_date, tomorrow_date, acquired_date);
 
     // 初始化用户日期选项
     int date_select;
@@ -129,12 +109,17 @@ int userdestine(struct destine_time ordertime)
                 printf("%d. %d:00 am - %d:50 am\n", number, i, i);
             }
         }
-        printf("9. 退出\n");
+        printf("%d. 退出\n", number);
         
         scanf("%d", &select_time);
         if (select_time == 9)
         {
             printf("user exit.\n");
+            return 1;
+        }
+        else if (select_time > number)
+        {
+            printf("No such option!\n");
             return 1;
         }
         else
@@ -147,9 +132,11 @@ int userdestine(struct destine_time ordertime)
                 select_time+=(logintime-9);
             }
             // 现在select_time变量存储的值就是用户选择的实际时间了(以24小时制存储)。
-            printf("%d",select_time);
+            // printf("%d",select_time);
         }
-        printf("your select time is %d", select_time);
+        // printf("your select time is %d", select_time);
+        strcpy(ordertime->date, today_date);
+        ordertime->time = select_time;
         break;
 
     case 2:
@@ -187,8 +174,15 @@ int userdestine(struct destine_time ordertime)
         {
             select_time+=8;
         }
-        printf("your select time is %d", select_time);
-
+        else
+        {
+            printf("No such option!\n");
+            return 1;
+        }
+        
+        // printf("your select time is %d", select_time);
+        strcpy(ordertime->date, tomorrow_date);
+        ordertime->time = select_time;
         
         break;
 
@@ -229,11 +223,19 @@ int userdestine(struct destine_time ordertime)
         {
             select_time+=8;
         }
+        else
+        {
+            printf("No such option!\n");
+            return 1;
+        }
         printf("your select time is %d", select_time);
-
+        strcpy(ordertime->date, acquired_date);
+        ordertime->time = select_time;
         break;
 
     default:
         break;
     }
+    return 0;
+    
 }
