@@ -1,3 +1,3 @@
 #pragma once
-#include"user_choose.h"
+#include"define_struct.h"
 int userdestine(struct destine_time *time);

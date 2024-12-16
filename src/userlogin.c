@@ -40,9 +40,8 @@ int userlogin(char filename[])
     fseek(file, 0, SEEK_SET);
     
     // 创建存储文件内每一行字符串的数组
-    char* getline[i];
-    char* username[i];
-    char* password[i];
+    char *getline[i];
+
 
 
     // 获取存储文件每一行的字符串指针
@@ -57,11 +56,16 @@ int userlogin(char filename[])
     }
     
     // 进行字符串切割
+    // 声明两个二位数组用来存放数据
+    char username[i][30];
+    char password[i][30];
+
     for (int n = 0; n < i; n++)
     {
-        username[n] = strtok(getline[n], " ");
-        password[n] = strtok(NULL, " ");
-        
+        char *token = strtok(getline[n], " ");
+        strcpy(username[n], token);
+        token = strtok(NULL, " ");
+        strcpy(password[n], token);
     }
     
     char input_username[20] = {0};
@@ -71,13 +75,28 @@ int userlogin(char filename[])
     printf("please input your password\n");
     scanf("%s", input_password);
 
+
+
     for (int n = 0; n < i; n++)
     {
+        printf("input username is [%s], username in txt is [%s]\ninput password is [%s], password in txt is [%s]\n", 
+            input_username, username[n], input_password, password[n]);
+    }
+    
+
+
+    for (int n = 0; n < i; n++)
+    {
+
         if (strcmp(input_username, username[n]) == 0)
         {
-            return 0;
+            if ((strcmp(input_password, password[n]) == 0))
+            {
+                return 0;
+            }
         }
-        return 1;
+        continue;
+
     }
-    return 0;
+    return 1;
 }

@@ -2,7 +2,7 @@
 #include<stdlib.h>
 #include<string.h>
 #include<time.h>
-#include"user_choose.h"
+#include"define_struct.h"
 
 
 /*
