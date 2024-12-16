@@ -1,0 +1,12 @@
+# Exclude VSCode settings
+.vscode/
+
+# Exclude MacOS specific metadata
+.DS_Store
+
+# Exclude build directories and temporary files
+/src/
+*.o
+*.out
+*.exe
+*.log
