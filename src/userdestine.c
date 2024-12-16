@@ -49,6 +49,11 @@ int userdestine(struct destine_time *ordertime)
         timeinfo->tm_mon + 1,  // 月份是从0开始的，所以要+1  
         timeinfo->tm_mday);  
 
+        // 这些值将用于ini文件的生成
+        strcpy(ordertime->today_date, today_date);
+        strcpy(ordertime->tomorrow_date, tomorrow_date);
+        strcpy(ordertime->acquired_date, acquired_date);
+
     printf("Which day you want order?\n");
     printf("1. %s\n2. %s\n3. %s\n4. exit\n", today_date, tomorrow_date, acquired_date);
 
