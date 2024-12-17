@@ -9,21 +9,14 @@ struct destine_time
     char acquired_date[30];
 };
 
-struct room_time
+struct room_time_t
 {
     char date[30];
-    int clock9;
-    int clock10;
-    int clock11;
-    int clock12;
-    int clock13;
-    int clock14;
-    int clock15;
-    int clock16;
+    int booked[24]; // booked[9]==0
 };
 
 struct room_ini
 {
     int roomsize;
-    struct room_time;
+    struct room_time_t room_time;
 };
