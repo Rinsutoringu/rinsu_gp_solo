@@ -5,7 +5,6 @@
 .DS_Store
 
 # Exclude build directories and temporary files
-/src/
 *.o
 *.out
 *.exe
