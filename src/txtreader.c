@@ -57,7 +57,7 @@ struct room_ini ** txtreader(struct destine_time *ordertime,int room_number)
                 perror("File open fail");
                 continue; // 尝试打开下一个文件
             }
-            // printf("File open successed: %s\n", file_path);
+            printf("File open successed: %s\n", file_path);
 
             savefile[file_number] = (struct room_ini *)malloc(sizeof(struct room_ini));
 
