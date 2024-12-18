@@ -15,8 +15,6 @@
 
 ##############################################
 */
-
-
 int userdestine(struct destine_time *ordertime)
 {
     time_t rawtime;  

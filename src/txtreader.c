@@ -28,9 +28,11 @@
 
 ##############################################
 */
-
-int txtreader(struct destine_time *ordertime, struct room_ini *room)
+struct room_ini ** txtreader(struct destine_time *ordertime,int room_number)
 {
+    struct room_ini room;
+    int file_number;
+    struct room_ini **savefile = (struct room_ini **)malloc(sizeof(struct room_ini *)*room_number);
 
     // 遍历config文件夹下的所有文件
     char *directory_path = "./config";
@@ -39,7 +41,7 @@ int txtreader(struct destine_time *ordertime, struct room_ini *room)
 
     if (dir == NULL) {
         perror("path open fail");
-        return 1; // Exit the function if the directory cannot be opened
+        return NULL; // Exit the function if the directory cannot be opened
     }
 
     while ((entry = readdir(dir)) != NULL) {
@@ -55,7 +57,9 @@ int txtreader(struct destine_time *ordertime, struct room_ini *room)
                 perror("File open fail");
                 continue; // 尝试打开下一个文件
             }
-            printf("File open successed: %s\n", file_path);
+            // printf("File open successed: %s\n", file_path);
+
+            savefile[file_number] = (struct room_ini *)malloc(sizeof(struct room_ini));
 
             int line_number = 0;
             char line[100] = {0};
@@ -70,13 +74,13 @@ int txtreader(struct destine_time *ordertime, struct room_ini *room)
                 switch (date_counter)
                 {
                 case 0:
-                    room_time = &room->room_time_0;
+                    room_time = &savefile[file_number]->room_time_0;
                     break;
                 case 1:
-                    room_time = &room->room_time_1;
+                    room_time = &savefile[file_number]->room_time_1;
                     break;
                 case 2:
-                    room_time = &room->room_time_2;
+                    room_time = &savefile[file_number]->room_time_2;
                     break;
                 
                 default:
@@ -94,11 +98,11 @@ int txtreader(struct destine_time *ordertime, struct room_ini *room)
                 // 找到房间详细信息行
                 if (strstr(line, "roomid") != NULL)
                 {
-                    sscanf(line, "roomid=%s", &room->roomid);
+                    sscanf(line, "roomid=%s", &(savefile[file_number]->roomid));
                 }
                 else if (strstr(line, "roomsize") != NULL)
                 {
-                    sscanf(line, "roomsize=%d", &room->roomsize);
+                    sscanf(line, "roomsize=%d", &savefile[file_number]->roomsize);
                 }
                 
                 // 找到配置行
@@ -107,24 +111,17 @@ int txtreader(struct destine_time *ordertime, struct room_ini *room)
                     sscanf(line, "[%10[^]]]", currentDate);
                     strcpy(room_time->date, currentDate);
                     // printf("This group date is %s\n", room_time->date);
-
-                    // 更新配置文件写入位置
-                    ;
                 }
 
                 // 找到时间显示行
                 else if (strstr(line, "clock") != NULL)
                 {
-
-                     
-                    
                     // 在检测到这一行的时候，这一行的指针已经被存入程序，所以先把这一行的内容存入结构体中
                     // 检测到时间显示行时，日期一定已经被存储在内存中了
-
-                    
                     int clock_time = 0;
                     char status[10] = {0};
                     sscanf(line, "clock%d=%s", &clock_time, status);
+
                     if (strcmp(status, "idle") == 0)
                     {
                         room_time->booked[clock_time] = 0;
@@ -134,31 +131,31 @@ int txtreader(struct destine_time *ordertime, struct room_ini *room)
                         room_time->booked[clock_time] = 1;
                     }
                     // printf("read %d o'clock status turns to %d\n", clock_time, room_time->booked[clock_time]);
-
-
                     if (clock_time == 16)
                     {
                         date_counter++;
                     }
-                    
                 }
-
             }
             // printf("This room id is %s, size is %d\n", room->roomid, room->roomsize);
 
             // 关闭文件
             fclose(file);
-            printf("line number are %d\n", line_number);
+            // printf("line number are %d\n", line_number);
             if (line_number != 32)
             {
                 printf("config txt at %s is broken! to fix problem, delete it. \n", file_path);
             }
-        }
-        
+        char str[5];
+
+        // printf("room number %s ,size %d in file %d\n", 
+        //     savefile[file_number]->roomid, 
+        //     savefile[file_number]->roomsize, 
+        //     file_number);
+
+        file_number++;
+        }      
     }
-
     closedir(dir);
-
-
-    return 0;
+    return savefile;
 }

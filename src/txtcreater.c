@@ -15,9 +15,6 @@ Classroom_info.txt
 
 ##############################################
 */
-
-
-
 int txtcreater(char filename[], struct destine_time *ordertime)
 {
     // char* arr[10];
@@ -32,7 +29,9 @@ int txtcreater(char filename[], struct destine_time *ordertime)
     if (file == NULL)
     {
         printf("file open error\n");
-        return 1;
+
+        // 未发现存储教室信息的txt文档
+        return -1;
     }
     // 获取文件行数
     while (fgets(buffer, 100, file) != NULL)
@@ -72,15 +71,15 @@ int txtcreater(char filename[], struct destine_time *ordertime)
         roomname[n] = strtok(getline[n], " ");
         roomspace[n] = strtok(NULL, " ");
         // 打印获取到的房间信息
-        printf("The room name is %s\n", roomname[n]);
-        printf("The room space is %s\n", roomspace[n]);
+        // printf("The room name is %s\n", roomname[n]);
+        // printf("The room space is %s\n", roomspace[n]);
         char ini_path[20] = {0};
         snprintf(ini_path, sizeof(ini_path), "./config/%s.txt", roomname[n]);
 
         // 如果文件已经存在，开始尝试生成下一个文件。
         if (access(ini_path, F_OK) == 0)
         {
-            perror("File already exist.");
+            // perror("File already exist.");
             continue;
             
         }
@@ -130,5 +129,6 @@ int txtcreater(char filename[], struct destine_time *ordertime)
         fclose(file);
     }
 
-    return 0;
+    // i是生成的文件数量
+    return i;
 }

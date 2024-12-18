@@ -1,3 +1,3 @@
 #pragma once
 
-int txtreader(struct destine_time *ordertime, struct room_ini *room);
+struct room_ini ** txtreader(struct destine_time *ordertime, struct room_ini *room, int room_number);
