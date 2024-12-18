@@ -76,10 +76,12 @@ int txtcreater(char filename[], struct destine_time *ordertime)
         printf("The room space is %s\n", roomspace[n]);
         char ini_path[20] = {0};
         snprintf(ini_path, sizeof(ini_path), "./config/%s.txt", roomname[n]);
+
+        // 如果文件已经存在，开始尝试生成下一个文件。
         if (access(ini_path, F_OK) == 0)
         {
             perror("File already exist.");
-            return 1;
+            continue;
             
         }
         
