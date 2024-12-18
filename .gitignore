@@ -4,6 +4,9 @@
 # Exclude MacOS specific metadata
 .DS_Store
 
+# config是生成的配置 不需要同步
+src/config/
+
 # Exclude build directories and temporary files
 
 *.o
@@ -11,5 +14,3 @@
 *.exe
 *.log
 
-# config是生成的配置 不需要同步
-src/config/
