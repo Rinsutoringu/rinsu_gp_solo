@@ -5,7 +5,11 @@
 .DS_Store
 
 # Exclude build directories and temporary files
+
 *.o
 *.out
 *.exe
 *.log
+
+# config是生成的配置 不需要同步
+src/config/
