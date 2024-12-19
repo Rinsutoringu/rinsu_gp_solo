@@ -65,6 +65,7 @@ int userdestine(struct destine_time *ordertime)
     scanf("%d", &date_select);
     if (date_select == 4)
     {
+        // 用户选择退出
         return 2;
     }
 
@@ -119,14 +120,16 @@ int userdestine(struct destine_time *ordertime)
         printf("%d. 退出\n", number);
         
         scanf("%d", &select_time);
-        if (select_time == 9)
+        if (select_time == number)
         {
             printf("user exit.\n");
+            // 用户选择退出
             return 2;
         }
         else if (select_time > number)
         {
             printf("No such option!\n");
+            // 用户选择了不存在的选项
             return 1;
         }
         else
