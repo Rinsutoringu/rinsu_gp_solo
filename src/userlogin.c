@@ -88,6 +88,7 @@ int userlogin(char filename[])
         printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         printf("please input your username\n");
         scanf("%s", input_username);
+        printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         printf("please input your password\n");
         scanf("%s", input_password);
 

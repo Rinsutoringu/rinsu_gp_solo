@@ -96,14 +96,18 @@ int userdestine(struct destine_time *ordertime)
         }
         int logintime = hour;
 
+        // printf("输入测试点\n");
+        // scanf("%d", &hour);
+
         if (hour < 9)
         {
             hour = 9;
         }
-        
+
         for (int i = hour; i < 17; i++)
         {
             number++;
+
 
             if (i == 12)
             {
@@ -120,7 +124,16 @@ int userdestine(struct destine_time *ordertime)
                 printf("%d. %d:00 am - %d:50 am\n", number, i, i);
             }
         }
-        printf("%d. 退出\n", number);
+        if (number < 9)
+        {
+            printf("%d. 退出\n", number+1);
+        }
+        else
+        {
+            printf("%d. 退出\n", 10);
+        }
+        
+        
         
         scanf("%d", &select_time);
         if (select_time == number)
