@@ -69,33 +69,48 @@ int userlogin(char filename[])
     
     char input_username[20] = {0};
     char input_password[20] = {0};
-    printf("please input your username\n");
-    scanf("%s", input_username);
-    printf("please input your password\n");
-    scanf("%s", input_password);
 
 
 
-    for (int n = 0; n < i; n++)
+
+    // for (int n = 0; n < i; n++)
+    // {
+    //     printf("input username is [%s], username in txt is [%s]\ninput password is [%s], password in txt is [%s]\n", 
+    //         input_username, username[n], input_password, password[n]);
+    // }
+    
+
+    int Opportunity = 0;
+    while (1)
     {
-        printf("input username is [%s], username in txt is [%s]\ninput password is [%s], password in txt is [%s]\n", 
-            input_username, username[n], input_password, password[n]);
+        memset(input_username, 0, sizeof(input_username));
+        memset(input_password, 0, sizeof(input_password));
+        printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        printf("please input your username\n");
+        scanf("%s", input_username);
+        printf("please input your password\n");
+        scanf("%s", input_password);
+
+        for (int n = 0; n < i; n++)
+        {
+            if (strcmp(input_username, username[n]) == 0)
+            {
+                if ((strcmp(input_password, password[n]) == 0))
+                {
+                    return 0;
+                }
+            }
+        }
+        
+        Opportunity++;
+        if (Opportunity == 3)
+        {
+            return 1;
+        }
+        printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        printf("your password or username is wrong. But you still have %d choice.\n", 3-Opportunity);
+
     }
     
 
-
-    for (int n = 0; n < i; n++)
-    {
-
-        if (strcmp(input_username, username[n]) == 0)
-        {
-            if ((strcmp(input_password, password[n]) == 0))
-            {
-                return 0;
-            }
-        }
-        continue;
-
-    }
-    return 1;
 }

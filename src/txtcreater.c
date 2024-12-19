@@ -28,7 +28,7 @@ int txtcreater(char filename[], struct destine_time *ordertime)
     file = fopen(filename, "r");
     if (file == NULL)
     {
-        printf("file open error\n");
+        // printf("file open error\n");
 
         // 未发现存储教室信息的txt文档
         return -1;
@@ -62,7 +62,7 @@ int txtcreater(char filename[], struct destine_time *ordertime)
     
     if (_mkdir(dir_name) == -1)
     {
-        perror("path create fail(maybe it already exists?)");
+        // perror("path create fail(maybe it already exists?)");
     }
     
 

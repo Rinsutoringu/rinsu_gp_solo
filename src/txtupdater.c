@@ -17,7 +17,7 @@
 */
 int txtupdater(int a)
 {
-    printf("update start!\n");
+    // printf("update start!\n");
     // 先拿到今天的日期配置文件
     // 然后逐个打开config目录下的文件
     // 逐行读取，找到日期匹配的行
@@ -102,7 +102,7 @@ int txtupdater(int a)
             file_number++;
 
 
-            printf("File open successed: %s\n", file_path);
+            // printf("File open successed: %s\n", file_path);
             while (fgets(line, sizeof(line), file))
             {
                 line[strcspn(line, "\r\n")] = 0;
@@ -111,7 +111,7 @@ int txtupdater(int a)
                 if (strstr(line, "[") != NULL)
                 {
                     sscanf(line, "[%10s]\n", status);
-                    printf("status is %s\n", status);
+                    // printf("status is %s\n", status);
                     
                     // 判断文件中存储的第一份信息是否是今天
                     if (strstr(status, today_date) != NULL)
@@ -151,7 +151,7 @@ int txtupdater(int a)
                 // 读取文件内容
                 while (fgets(line, sizeof(line), file))
                 {
-                    printf("line is %s\n", line);
+                    // printf("line is %s\n", line);
 
 
                     // 如果找到昨天的日期，就跳过10行（要更新日期的，
@@ -209,7 +209,7 @@ int txtupdater(int a)
                 // 读取文件内容
                 while (fgets(line, sizeof(line), file))
                 {
-                    printf("%s\n", line);
+                    // printf("%s\n", line);
 
 
                     // 如果找到昨天的日期，就跳过10行（要更新日期的，
@@ -265,7 +265,7 @@ int txtupdater(int a)
             else if (flag == 3)
             {
                 remove(file_path);
-                printf("delete file %s\n", file_path);
+                // printf("delete file %s\n", file_path);
             }
             
 

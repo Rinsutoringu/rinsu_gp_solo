@@ -29,18 +29,17 @@ int main(int argc, char const *argv[])
     char Classroom_info[] = "classroom_info.txt";
 
     int b = 1;
+    // 用于更新配置文件
     txtupdater(b);
-    printf("update success!\n");
-
 
     // login function
     int login_state = userlogin(account_file);
     if (login_state == 1)
     {
-        printf("login fail!");
+        printf("your password or username is wrong. login fail!");
         return 0;
     }
-    printf("success!\n");
+    printf("login success!\n");
     // 函数userdestine的返回值，返回2代表用户选择退出
     // 返回其他非0值代表用户登录出错，返回0代表成功登录
 
@@ -81,12 +80,13 @@ int main(int argc, char const *argv[])
         ("read fail!\n");
         return 0;
     }
-    printf("read success!\n");
+    // printf("read success!\n");
 
     char *booked_room = roomseacher(room_number, &userorder, savefile);
     if (booked_room == NULL)
     {
-        printf("no suitable room\n");
+        printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        printf("Sorry, The room type you require is already available.\n");
         printf("Continue (y/n)?\n");
         char a;
         while (1)
@@ -107,19 +107,22 @@ int main(int argc, char const *argv[])
             }
         }
     }
-    printf("you select room %s, time is%d, date is %s\n", booked_room, userorder.time, userorder.date);
+    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    printf("Your room number: %s\nYour order time: %d O'Clock start. (This reservation lasts 50 minutes, please plan your time in advance)\nYour order date: %s\n\n", booked_room, userorder.time, userorder.date);
 
-    printf("Continue (y/n)?\n");
+    printf("Book another room? (y/n)\n");
     char a;
     while (1)
     {
         scanf("%c", &a);
         if (a == 'y')
         {
+            printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             goto label;
         }
         else if (a == 'n')
         {
+            printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             printf("see you next time!\n");
             return 0;
         }

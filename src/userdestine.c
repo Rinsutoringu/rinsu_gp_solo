@@ -52,6 +52,7 @@ int userdestine(struct destine_time *ordertime)
         strcpy(ordertime->tomorrow_date, tomorrow_date);
         strcpy(ordertime->acquired_date, acquired_date);
 
+    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     printf("Which day you want order?\n");
     printf("1. %s\n2. %s\n3. %s\n4. exit\n", today_date, tomorrow_date, acquired_date);
 
@@ -63,6 +64,8 @@ int userdestine(struct destine_time *ordertime)
     int select_time = 0;
 
     scanf("%d", &date_select);
+    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    printf("Which time you want order?\n");
     if (date_select == 4)
     {
         // 用户选择退出
@@ -72,7 +75,7 @@ int userdestine(struct destine_time *ordertime)
     switch (date_select)
     {
     case 1:
-        printf("you choose today!\n");
+        // printf("you choose today!\n");
 
         /*
 
@@ -150,7 +153,7 @@ int userdestine(struct destine_time *ordertime)
         break;
 
     case 2:
-        printf("you choose tomorrow!\n");
+        // printf("you choose tomorrow!\n");
 
         for (int i = 9; i < 17; i++)
         {
@@ -197,7 +200,7 @@ int userdestine(struct destine_time *ordertime)
         break;
 
     case 3:
-        printf("you choose acquired!\n");
+        // printf("you choose acquired!\n");
 
 
 
