@@ -31,7 +31,7 @@
 struct room_ini ** txtreader(struct destine_time *ordertime,int room_number)
 {
     struct room_ini room;
-    int file_number;
+    int file_number = 0;
     struct room_ini **savefile = (struct room_ini **)malloc(sizeof(struct room_ini *)*room_number);
 
     // 遍历config文件夹下的所有文件
@@ -99,6 +99,7 @@ struct room_ini ** txtreader(struct destine_time *ordertime,int room_number)
                 if (strstr(line, "roomid") != NULL)
                 {
                     sscanf(line, "roomid=%s", &(savefile[file_number]->roomid));
+                    printf("This room id is %s\n", savefile[file_number]->roomid);
                 }
                 else if (strstr(line, "roomsize") != NULL)
                 {
@@ -137,6 +138,7 @@ struct room_ini ** txtreader(struct destine_time *ordertime,int room_number)
                     }
                 }
             }
+            file_number++;
             // printf("This room id is %s, size is %d\n", room->roomid, room->roomsize);
 
             // 关闭文件
@@ -153,7 +155,7 @@ struct room_ini ** txtreader(struct destine_time *ordertime,int room_number)
         //     savefile[file_number]->roomsize, 
         //     file_number);
 
-        file_number++;
+        
         }      
     }
     closedir(dir);

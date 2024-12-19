@@ -5,7 +5,7 @@
 #include <direct.h>
 #include <dirent.h>
 #include <unistd.h>
-#include "define_struct.h"
+#include "../inc/define_struct.h"
 
 /*
 #####################################

@@ -4,7 +4,7 @@
 #include <time.h>
 #include <direct.h>
 #include <unistd.h>
-#include"define_struct.h"
+#include "../inc/define_struct.h"
 
 /*
 ##############################################

@@ -11,13 +11,11 @@
 #include "../inc/txtcreater.h"
 #include "../inc/txtreader.h"
 #include "../inc/roomseacher.h"
-
-
-
+#include "../inc/txtupdater.h"
 /*
 ##############################################
 
-ver 0.1
+ver 0.2
 
 ##############################################
 */
@@ -29,6 +27,11 @@ int main(int argc, char const *argv[])
     
     char account_file[] = "../src/account.txt";
     char Classroom_info[] = "classroom_info.txt";
+
+    int b = 1;
+    txtupdater(b);
+    printf("update success!\n");
+
 
     // login function
     int login_state = userlogin(account_file);
@@ -60,6 +63,9 @@ int main(int argc, char const *argv[])
     // printf("you order time is %d\n", userorder.time);
 
     // 函数txtcreater的返回值，返回-1代表没找到配置文件，返回文件数量代表生成成功
+
+    int txtupdater();
+
     int room_number = txtcreater(Classroom_info, &userorder);
     if (room_number == -1)
     {
@@ -69,7 +75,7 @@ int main(int argc, char const *argv[])
     // printf("有%d份教室配置文件\n", room_number);
 
     // 函数txtreader的返回值，返回NULL代表读取失败，返回一个结构体指针数组代表读取成功，room_number为其索引
-    struct room_ini **savefile = txtreader(&userorder, &room, room_number);
+    struct room_ini **savefile = txtreader(&userorder, room_number);
     if (savefile == NULL)
     {
         ("read fail!\n");

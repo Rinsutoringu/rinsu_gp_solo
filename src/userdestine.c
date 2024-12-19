@@ -2,7 +2,7 @@
 #include<stdlib.h>
 #include<string.h>
 #include<time.h>
-#include"define_struct.h"
+#include "../inc/define_struct.h"
 
 
 /*
