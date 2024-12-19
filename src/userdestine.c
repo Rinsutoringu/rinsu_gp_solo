@@ -126,11 +126,11 @@ int userdestine(struct destine_time *ordertime)
         }
         if (number < 9)
         {
-            printf("%d. 退出\n", number+1);
+            printf("%d. exit\n", number+1);
         }
         else
         {
-            printf("%d. 退出\n", 10);
+            printf("%d. exit\n", 10);
         }
         
         
@@ -186,7 +186,7 @@ int userdestine(struct destine_time *ordertime)
                 printf("%d. %d:00 pm - %d:50 pm\n", number, n, n);
             }
         }
-        printf("9. 退出\n");
+        printf("9. exit\n");
 
         // 菜单打印完成，下方开始接收用户输入
         scanf("%d", &select_time);
@@ -235,7 +235,7 @@ int userdestine(struct destine_time *ordertime)
                 printf("%d. %d:00 pm - %d:50 pm\n", number, n, n);
             }
         }
-        printf("9. 退出\n");
+        printf("9. exit\n");
 
         // 菜单打印完成，下方开始接收用户输入
         scanf("%d", &select_time);
