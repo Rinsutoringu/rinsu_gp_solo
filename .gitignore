@@ -14,5 +14,5 @@ src/config/
 *.exe
 *.log
 
-src/Classroom_info.txt
-src/name_and_password.txt
+src/classroom_info.txt
+src/account.txt

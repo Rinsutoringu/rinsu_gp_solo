@@ -28,7 +28,7 @@ char* roomseacher(int room_number, struct destine_time *userorder, struct room_i
 char* roomseacher(int room_number, struct destine_time *userorder, struct room_ini **savefile)
 {
     int user_input;
-    int suitable[room_number];
+    int suitable[1000] = {0};
     int index = 0;
     printf("please input room size\n");
     scanf("%d", &user_input);
@@ -58,10 +58,7 @@ char* roomseacher(int room_number, struct destine_time *userorder, struct room_i
             // 完成日期与小时匹配
             if ((findstuct->booked)[userorder->time] == 0)
             {
-                // 符合要求的可用房间存入suitable数组中
-                (suitable[index]) = i;
-                printf("发现合格教室%d, 索引%d\n", suitable[index], index);
-                index++;
+
             }
             // 没有合适的教室
             // else return NULL;
@@ -72,17 +69,13 @@ char* roomseacher(int room_number, struct destine_time *userorder, struct room_i
     // 应用基础的冒泡排序
     for (int i = 0; i < index - 1; i++) {
         for (int j = 0; j < index - i - 1; j++) {
-            int current = suitable[j];
-            int next = suitable[j + 1];
+            int current = j;
+            int next = j + 1;
 
-            // 比较当前元素和下一个元素的大小
-            if (savefile[current]->roomsize > savefile[next]->roomsize) {
-                // 如果当前元素大于下一个元素，则交换它们
-                // temp = savefile[current]->roomsize;
-                // savefile[current]->roomsize = savefile[next]->roomsize;
-                // savefile[next]->roomsize = temp;
-
-                // 同时交换 suitable 数组中的索引，以保持追踪
+            // 比较结构体成员（房间大小），如果当前元素大于下一个元素，则交换结构体的指针
+            // 这里是冒泡排序，所以是从小到大排序
+            if (suitable[current]->roomsize > suitable[next]->roomsize) {
+                // 交换元素
                 temp = suitable[j];
                 suitable[j] = suitable[j + 1];
                 suitable[j + 1] = temp;
@@ -96,6 +89,8 @@ char* roomseacher(int room_number, struct destine_time *userorder, struct room_i
     }
     printf("\n");
     char *room_name = (savefile[0]->roomid);
+
+    // 选择最小的教室,并且将其时间段标记为已预定
     if (userorder->date == userorder->today_date)
     {
         findstuct = &(savefile[0]->room_time_0);
@@ -116,105 +111,6 @@ char* roomseacher(int room_number, struct destine_time *userorder, struct room_i
             snprintf(file_path, sizeof(file_path), "./config/%s.txt", savefile[0]->roomid);
             printf("path is %s\n", file_path);
 
-            // 打开并处理文件
-            FILE *file = fopen(file_path, "w");
-            char dayconfig[830];
-            // snprintf(dayconfig, sizeof(dayconfig),"this is a test %d", savefile[0]->roomsize);
-            // fprintf(file, "%s", dayconfig);
-            // fclose(file);
-            char **sign[300];
-            char c_idle[] = "idle";
-            char c_booked[] = "booked";
-            int k = 0;
-            for (int j = 0; j < 3; j++)
-            {
-                for (int i = 9; i < 17; i++)
-                {
-                    if (savefile[j]->room_time_0.booked[i] == 0)
-                    {
-                        *sign[k] = c_idle;
-                    }
-                    else
-                    {
-                        *sign[k] = c_booked;
-                    }
-                    
-
-                    printf(" the sign is %s\n", *sign[k]);
-                    k++;
-                }                
-            }
-            
-
-            snprintf(dayconfig, sizeof(dayconfig), 
-                "roomid=%s\n"
-                "roomsize=%d\n"
-                "\n"
-                "[%s]\n"
-                "clock9=%d\n"
-                "clock10=%d\n"
-                "clock11=%d\n"
-                "clock12=%d\n"
-                "clock13=%d\n"
-                "clock14=%d\n"
-                "clock15=%d\n"
-                "clock16=%d\n"
-                "\n"
-                "[%s]\n"
-                "clock9=%d\n"
-                "clock10=%d\n"
-                "clock11=%d\n"
-                "clock12=%d\n"
-                "clock13=%d\n"
-                "clock14=%d\n"
-                "clock15=%d\n"
-                "clock16=%d\n"
-                "\n"
-                "[%s]\n"
-                "clock9=%d\n"
-                "clock10=%d\n"
-                "clock11=%d\n"
-                "clock12=%d\n"
-                "clock13=%d\n"
-                "clock14=%d\n"
-                "clock15=%d\n"
-                "clock16=%d\n", 
-                &savefile[0]->roomid,
-                savefile[0]->roomsize,
-
-                &savefile[0]->room_time_0.date,
-                savefile[0]->room_time_0.booked[9],
-                savefile[0]->room_time_0.booked[10],
-                savefile[0]->room_time_0.booked[11],
-                savefile[0]->room_time_0.booked[12],
-                savefile[0]->room_time_0.booked[13],
-                savefile[0]->room_time_0.booked[14],
-                savefile[0]->room_time_0.booked[15],
-                savefile[0]->room_time_0.booked[16],
-
-                &savefile[0]->room_time_1.date,
-                savefile[0]->room_time_1.booked[9],
-                savefile[0]->room_time_1.booked[10],
-                savefile[0]->room_time_1.booked[11],
-                savefile[0]->room_time_1.booked[12],
-                savefile[0]->room_time_1.booked[13],
-                savefile[0]->room_time_1.booked[14],
-                savefile[0]->room_time_1.booked[15],
-                savefile[0]->room_time_1.booked[16],
-
-                &savefile[0]->room_time_2.date,
-                savefile[0]->room_time_2.booked[9],
-                savefile[0]->room_time_2.booked[10],
-                savefile[0]->room_time_2.booked[11],
-                savefile[0]->room_time_2.booked[12],
-                savefile[0]->room_time_2.booked[13],
-                savefile[0]->room_time_2.booked[14],
-                savefile[0]->room_time_2.booked[15],
-                savefile[0]->room_time_2.booked[16]
-                );
-            fprintf(file, "%s", dayconfig);
-            fclose(file);
-
     
     
 
@@ -225,8 +121,8 @@ char* roomseacher(int room_number, struct destine_time *userorder, struct room_i
 
 int main(int argc, char const *argv[])
 {
-    char account_file[] = "./name_and_password.txt";
-    char Classroom_info[] = "Classroom_info.txt";
+    char account_file[] = "../src/account.txt";
+    char Classroom_info[] = "classroom_info.txt";
 
     // login function
 
