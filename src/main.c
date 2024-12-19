@@ -58,65 +58,59 @@ char* roomseacher(int room_number, struct destine_time *userorder, struct room_i
             // 完成日期与小时匹配
             if ((findstuct->booked)[userorder->time] == 0)
             {
-
+                suitable[index] = i;
+                index++;
+                // printf("房间%s在%d时段没有被预定\n", savefile[suitable[index]]->roomid, userorder->time);
             }
             // 没有合适的教室
-            // else return NULL;
-            
+            else return NULL;
         }
     }
-    int temp = 0;
-    // 应用基础的冒泡排序
-    for (int i = 0; i < index - 1; i++) {
-        for (int j = 0; j < index - i - 1; j++) {
-            int current = j;
-            int next = j + 1;
-
-            // 比较结构体成员（房间大小），如果当前元素大于下一个元素，则交换结构体的指针
-            // 这里是冒泡排序，所以是从小到大排序
-            if (suitable[current]->roomsize > suitable[next]->roomsize) {
-                // 交换元素
-                temp = suitable[j];
-                suitable[j] = suitable[j + 1];
-                suitable[j + 1] = temp;
+    for (int i = 0; i < index; i++)
+    {
+        printf("房间%s在%d时段没有被预定\n", savefile[suitable[i]]->roomid, userorder->time);
+    }
+    for (int i = 0; i < index-1; i++)
+    {
+        for (int j = 0; j < index-i-1; j++)
+        {
+            if (savefile[suitable[j]]->roomsize > savefile[suitable[j+1]]->roomsize)
+            {
+                int temp = suitable[j];
+                suitable[j] = suitable[j+1];
+                suitable[j+1] = temp;
             }
         }
     }
-
-    printf("排序后输出的有效值为\n");
-    for (int i = 0; i < index; i++) {
-        printf("%d ", savefile[i]->roomsize);
+    printf("以下输出为完成冒泡排序的结果\n");
+    for (int i = 0; i < index; i++)
+    {    
+        printf("容量为%d的房间%s在%d时段没有被预定\n",savefile[suitable[i]]->roomsize, savefile[suitable[i]]->roomid, userorder->time);
     }
-    printf("\n");
-    char *room_name = (savefile[0]->roomid);
+    
 
     // 选择最小的教室,并且将其时间段标记为已预定
-    if (userorder->date == userorder->today_date)
-    {
-        findstuct = &(savefile[0]->room_time_0);
-    }
-    else if (userorder->date == userorder->tomorrow_date)
-    {
-        findstuct = &(savefile[0]->room_time_1);
-    }
-    else if (userorder->date == userorder->acquired_date)
-    {
-        findstuct = &(savefile[0]->room_time_2);
-    }
-    findstuct->booked[userorder->time]=1;
-
-            // 构建文件路径
-            char file_path[100];
-            char line[100];
-            snprintf(file_path, sizeof(file_path), "./config/%s.txt", savefile[0]->roomid);
-            printf("path is %s\n", file_path);
-
     
+    if (strcmp(userorder->date, savefile[suitable[0]]->room_time_0.date) == 0)
+    {
+        savefile[suitable[0]]->room_time_0.booked[userorder->time] = 1;
+    }
+    else if (strcmp(userorder->date, savefile[suitable[0]]->room_time_1.date) == 0)
+    {
+        savefile[suitable[0]]->room_time_1.booked[userorder->time] = 1;
+    }
+    else if (strcmp(userorder->date, savefile[suitable[0]]->room_time_1.date) == 0)
+    {
+        savefile[suitable[0]]->room_time_2.booked[userorder->time] = 1;
+    }
+    printf("最终选择的教室是%s,时段%d被预定,日期为%s\n", savefile[suitable[0]]->roomid, userorder->time, userorder->date);
     
-
-    return room_name;
-
-
+    // 构建文件路径
+    char file_path[100];
+    char line[100];
+    snprintf(file_path, sizeof(file_path), "./config/%s.txt", savefile[0]->roomid);
+    printf("path is %s\n", file_path);
+    return NULL;
 }
 
 int main(int argc, char const *argv[])
@@ -174,7 +168,7 @@ int main(int argc, char const *argv[])
     // room_name
     if (room_name == NULL)
     {
-        printf("Sorry, we can't match your classroom.\n");
+        // printf("Sorry, we can't match your classroom.\n");
     }
     
 
